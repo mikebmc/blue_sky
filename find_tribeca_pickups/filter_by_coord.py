@@ -10,15 +10,16 @@ lat_min = tribeca.tribeca_lat.min()
 lon_max = tribeca.tribeca_lon.max()
 lon_min = tribeca.tribeca_lon.min()
 
-# set file that we will write to
+# set files that we will read from and written to
 write_file = Path('tribeca_data_2016-06.csv')
+read_file = 'yellow_tripdata_2016-06.csv'
 
 # if write_file exists, remove it to prevent duplicate data
 if write_file.is_file():
     os.remove(write_file)
 
 
-def process(chunk):
+def process(chunk, verbose=False):
     # remove the columns that we don't care about
     chunk = chunk.drop(['VendorID', 'tpep_dropoff_datetime', 'passenger_count',
                         'trip_distance', 'RatecodeID', 'store_and_fwd_flag',
@@ -41,10 +42,11 @@ def process(chunk):
     else:
         chunk.to_csv(write_file, mode='w', index=False)
 
-    # print(chunk.head())
+    if verbose:
+        print(chunk.head())
 
 
 # break up the input file into more manageable chunks
 chunksize = 10 ** 6
-for chunk in pd.read_csv('yellow_tripdata_2016-02.csv', chunksize=chunksize):
+for chunk in pd.read_csv(read_file, chunksize=chunksize):
     process(chunk)
