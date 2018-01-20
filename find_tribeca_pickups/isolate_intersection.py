@@ -7,3 +7,5 @@ intersection = np.array([40.720768, -74.010015])
 half_block_from_int = np.array([40.720410, -74.010097])
 
 radius = np.linalg.norm(half_block_from_int - intersection)
+
+tribeca = pd.read_csv(read_file)
