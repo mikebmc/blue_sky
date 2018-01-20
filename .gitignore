@@ -5,3 +5,4 @@
 /kaggle/train.csv
 /find_tribeca_pickups/*.csv
 /goog_maps_meteor/
+.env
